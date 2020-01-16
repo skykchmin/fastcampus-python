@@ -13,17 +13,19 @@ def register(request): #등록화면 장고에 등록하기
         username = request.POST.get('username', None) #html로부터 name 값으로 값들이 전달됨
         password = request.POST.get('password', None) #html로부터 name 값으로 값들이 전달됨
         re_password = request.POST.get('re-password', None) #html로부터 name 값으로 값들이 전달됨
+        useremail = request.POST.get('useremail', None)
 
         res_data = {}
 
-        if not (username and password and re_password):
+        if not (username and password and re_password and useremail):
             res_data['error'] = '모든 값을 입력해야합니다'
         if password != re_password:
             res_data['error'] = '비밀번호가 다릅니다'
         else:
             fcuser = Fcuser( #객체를 만들고
                 username = username,
-                password = make_password(password) # make_password를 통해 해쉬를 통해 암호화가 된다
+                password = make_password(password), # make_password를 통해 해쉬를 통해 암호화가 된다
+                useremail = useremail
             ) 
 
             fcuser.save() #객체를 세이브하고 데이터베이스에 생성이 되는지
