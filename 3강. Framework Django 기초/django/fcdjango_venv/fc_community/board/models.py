@@ -12,6 +12,7 @@ class Board(models.Model):
     # Foreignkey를 이용하면 on_delete를 사용해야함 // 사용자가 삭제했을 경우, 사용자가 쓴 게시글을 지우기 위해서
     # foreignkey가 가르키고 있는 애가 삭제되면 자기 자신을 어떻게 할건지를 결정해야하는데 cascade는 사용자가 쓴 것을 전부 삭제한다
     # cascade 이외에도 null, set_default를 할 수 있다 
+    tag = models.ManyToManyField('tag.Tag', verbose_name='태그') #한명의 게시자가 여러명의 글을 쓸수있기때문에 1:n의 관계 태그는 m:n 관계
     registered_dttm = models.DateTimeField(auto_now_add=True, verbose_name='등록시간')
 
 

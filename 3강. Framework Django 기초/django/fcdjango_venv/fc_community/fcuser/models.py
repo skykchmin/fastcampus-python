@@ -3,6 +3,7 @@ from django.db import models
 # Create your models here.
 
 class Fcuser(models.Model):
+    objects = models.Manager()
     username = models.CharField(max_length=64, verbose_name='사용자명')
     useremail = models.EmailField(max_length=128, verbose_name='사용자 이메일')
     password = models.CharField(max_length=64, verbose_name='비밀번호')
@@ -16,3 +17,4 @@ class Fcuser(models.Model):
         db_table = 'fastcampus_fcuser'
         verbose_name='패스트캠퍼스 사용자'
         verbose_name_plural = '패스트캠퍼스 사용자'
+
