@@ -7,9 +7,14 @@
             <label for="title">제목</label>
             <input type="text" class="form-control" id="title" value="{{board.title}}" readonly/>  <!-- board.title을 가져온다 -->
             <label for="contents">내용</label>
-            <textarea class="form-control" readonly>{{board.contents}}</textarea> <!-- board.contents를 읽어온다 -->
+            <textarea class="form-control" readonly>{{ board.contents }}</textarea> <!-- board.contents를 읽어온다 -->
+            <label for="tags">태그</label>
+            <span id="tags" class="form-control">
+                {{ board.tags.all|join:","}}
+                <!-- join ','' : 리스트를 사이사이에 콤마안에 원하는 값을 넣어서 값을 만들어준다 -->
+            </span>
         </div>
-        <button class="btn btn-primary">돌아가기</button>
+        <button class="btn btn-primary" onclick="location.href='/board/list/'">돌아가기</button>
     </div>
 </div>
 {% endblock %}

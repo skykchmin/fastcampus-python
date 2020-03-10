@@ -4,6 +4,7 @@ from django.http import Http404
 from fcuser.models import Fcuser
 from .models import Board
 from .forms import BoardForm
+from tag.models import Tag
 
 def board_detail(request, pk): # 첫번째 글인지, 두번째 글인지 입력을 받아야함 그래서 pk 필요
     try:
@@ -24,12 +25,23 @@ def board_write(request): #제목과 내용이 요청되었을 때 작성자 정
             user_id = request.session.get('user') #세션을 가져온다
             fcuser = Fcuser.objects.get(pk=user_id)
 
+            tags = form.cleaned_data['tags'].split(',')
+
+    
             board = Board()
             board.title = form.cleaned_data['title']
             board.contents = form.cleaned_data['contents']
             board.writer = fcuser #fcuser를 가져와서 사용
+            
             board.save() # 데이터베이스에 저장
 
+            for tag in tags: #태그가 있는것을 가지고 와야되고, 태그가 생성할수도 있음
+                if not tag:
+                    continue
+                
+                _tag, _ = Tag.objects.get_or_create(name=tag)  # 뒤조건이 일치하는 모델이 있으면 가지고오고 없으면 생성을 한다
+                board.tags.add(_tag) #아이디값이 생성이 된 후에 태그를 저장하기 위해 
+                
             return redirect('/board/list/') #글 작성을 완료할 경우 이동시키기 위해서 
     else:
         form = BoardForm()
