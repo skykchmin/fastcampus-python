@@ -23,9 +23,11 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '0swanmsfz#g)frv-ez-n@gm!yj6(2w+%m!z@asr4&d!ews4pi('
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False #개발과정에선 디버그 True, 사용자 입장에서는 False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [ #파이썬 pythonanywhere의 아이디를 적어논다
+    'skykchmin.pythonanywhere.com'
+] 
 
 
 # Application definition
@@ -121,6 +123,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [
-  os.path.join(BASE_DIR, 'static'),  
-] #css나 js가 들어있을 때 그게 어느폴더에있는지 알려줘야한다
+# STATICFILES_DIRS = [
+#   os.path.join(BASE_DIR, 'static'),  
+# ] #css나 js가 들어있을 때 그게 어느폴더에있는지 알려줘야한다
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
